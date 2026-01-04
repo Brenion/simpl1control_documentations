@@ -1,0 +1,19 @@
+UID de la carte : 83 60 62 27 
+Données des secteurs :
+Secteur 0: Authentification échouée
+Secteur 1: Authentification échouée
+Secteur 2: Authentification échouée
+Secteur 3: Authentification échouée
+Secteur 4: Authentification échouée
+Secteur 5: Authentification échouée
+Secteur 6: Authentification échouée
+Secteur 7: Authentification échouée
+Secteur 8: Authentification échouée
+Secteur 9: Authentification échouée
+Secteur 10: Authentification échouée
+Secteur 11: Authentification échouée
+Secteur 12: Authentification échouée
+Secteur 13: Authentification échouée
+Secteur 14: Authentification échouée
+Secteur 15: Authentification échouée
+

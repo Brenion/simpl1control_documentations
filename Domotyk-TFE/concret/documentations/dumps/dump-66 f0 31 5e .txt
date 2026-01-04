@@ -1,0 +1,19 @@
+UID de la carte : 66 f0 31 5e 
+Données des secteurs :
+Secteur 0: 66 f0 31 5e f9 8 4 0 62 63 64 65 66 67 68 69 
+Secteur 1: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 3: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 4: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 5: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 6: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 7: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 8: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 9: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 10: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 11: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 12: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Secteur 13: Authentification échouée
+Secteur 14: Authentification échouée
+Secteur 15: Authentification échouée
+
