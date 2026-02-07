@@ -13,7 +13,7 @@ cree un ficheir config sur la machine qui se connectera au raspberry pour facili
 
 Host tfe
   Hostname 192.168.3.102
-  User laynmdream
+  User <VOTRE_USER>
   IdentityFile ~/.ssh/raspberry-tfe
 
 
@@ -636,12 +636,12 @@ networks:
 - **db.env** (à créer dans `production/`) — adapte aux valeurs que tu utilises déjà :
     
     ```
-    POSTGRES_DB=domotyk_dev
-    POSTGRES_USER=domotyk
-    POSTGRES_PASSWORD=test123
+    POSTGRES_DB=<NOM_PROJET>_dev
+    POSTGRES_USER=<NOM_PROJET>
+    POSTGRES_PASSWORD=<MOT_DE_PASSE_DB>
     ```
     
-- **production.env** (déjà chez toi) : garde `DATABASE_URL=postgresql://domotyk:test123@db:5432/domotyk_dev` (host = `db`).
+- **production.env** (déjà chez toi) : garde `DATABASE_URL=postgresql://<NOM_PROJET>:<MOT_DE_PASSE_DB>@db:5432/<NOM_PROJET>_dev` (host = `db`).
     
 - Le **frontend** (nginx) résout le service `backend` via le réseau `appnet` et proxifie `/api` → **pas de CORS** requis.
     

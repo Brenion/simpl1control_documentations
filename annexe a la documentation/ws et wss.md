@@ -481,7 +481,7 @@ if (process.env.CRON_JOB === "true") {
 
 // Add PostgreSQL plugin
 server.register(fastifyPostgres, {
-  connectionString: process.env.DATABASE_URL || "postgres://root:test123@localhost:5432/domotyk_dev"
+  connectionString: process.env.DATABASE_URL || "postgres://root:<MOT_DE_PASSE_DB>@localhost:5432/<NOM_PROJET>_dev"
 });
 
 

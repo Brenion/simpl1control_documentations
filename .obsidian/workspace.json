@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "documentation/K - Récapitulatif production.md",
+                "file": "documentation/W - RÉSUMÉ.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "K - Récapitulatif production"
+              "title": "W - RÉSUMÉ"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "domotyk_test",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,11 +74,12 @@
               "title": "Signets"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 420.5
+    "width": 249.5
   },
   "right": {
     "id": "6c3f2f741b5f8a30",
@@ -183,13 +184,17 @@
   },
   "active": "8f73b637009ed82d",
   "lastOpenFiles": [
+    "annexe a la documentation/ws et wss.md",
+    "documentation/W - RÉSUMÉ.md",
+    "documentation/J - mise en production.md",
+    "documentation/B - Documentation du Backend.md",
+    "documentation/C - MQTT, ESP32 et Backend.md",
+    "documentation/K - Récapitulatif production.md",
     "documentation/Z - Annexe 6 - Structure backend.md",
     "documentation/Z - Annexe 5 - Contrôle d’accès – Spécification fonctionnelle.md",
     "documentation/Z - Annexe 4 - tableau_final_heures_minutes pour algo LOGO.md",
     "annexe a la documentation/Architecture MQTT Topics.md",
     "annexe a la documentation/Commande SSL-TLS.md",
-    "documentation/W - RÉSUMÉ.md",
-    "documentation/J - mise en production.md",
     "documentation/I - 05 bis - Intégration du Port MQTT Sécurisé (TLS) dans le Backend.md",
     "documentation/I - 05 - Mise en œuvre technique – Encodeur ESP32.md",
     "documentation/I - 04 - Intégration MQTT Backend - Lecteur de badge (access-reader).md",
@@ -204,11 +209,7 @@
     "documentation/F - Gestion du chauffage sur le logo.md",
     "documentation/E - le modbus.md",
     "documentation/D - MQTT entre siemens logo et backend.md",
-    "documentation/C - MQTT, ESP32 et Backend.md",
-    "documentation/B - Documentation du Backend.md",
     "documentation/A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi.md",
-    "documentation/B  - Tâche pour réalisé à bien le projet.md",
-    "documentation/backend structure 05 juin.md",
     "Présentation/Exemplaire TFE numérisé - ISA - PAGNOULLE PATRICK.pdf",
     "Présentation/Présentation/ChatGPT Image 13 sept. 2025, 12_16_00.png",
     "Présentation/Présentation/Capture d’écran 2025-09-14 à 16.21.18.png",

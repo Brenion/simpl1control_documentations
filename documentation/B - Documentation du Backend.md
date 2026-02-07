@@ -95,7 +95,7 @@ Ces statistiques seront utilisées pour générer des rapports et optimiser la g
 ## Structure de base  du projet 
 
 ```
-/Users/kavan/www/tfe/domotyk/
+/<RACINE DU PROJET>/<NOM_PROJET>/
 ├── packages/
 │   └── backend/
 │       ├── src/
@@ -445,7 +445,7 @@ Créer un fichier `**docker-compose.yml**` à la racine du projet avec le conten
 ```yaml
 version: '3.8'
 
-name: domotyk
+name: <NOM_PROJET>
 
 services:
 	postgres:
@@ -456,8 +456,8 @@ services:
 		restart: always
 		environment:
 			POSTGRES_USER: root
-			POSTGRES_PASSWORD: test123
-			POSTGRES_DB: domotykDB
+			POSTGRES_PASSWORD:<MOT_DE_PASSE_DB>
+			POSTGRES_DB: <NOM_DB>
 		ports:
 		- "5432:5432"
 
@@ -470,8 +470,8 @@ Cela permet de lancer un container.  ```- ./database:/docker-entrypoint-initdb.d
 pour l'instant dans ce dossier nous allons cree un nouveau fichier ``ìnit.sql
 
 ```sql
-CREATE DATABASE domotyk_test;
-CREATE DATABASE domotyk_dev;
+CREATE DATABASE <NOM_PROJET>_test;
+CREATE DATABASE <NOM_PROJET>_dev;
 ```
 
 et voici les deux ligne qui créerons deux base de donnée distinct. celle de test permettra de faire les test back sans toucher a la version de development.
@@ -821,7 +821,7 @@ register(server);
 
 // Ajout de la configuration PostgreSQL avec `@fastify/postgres`
 server.register(fastifyPostgres, {
-  connectionString: process.env.DATABASE_URL || "postgres://root:test123@localhost:5432/domotyk_dev"
+  connectionString: process.env.DATABASE_URL || "postgres://root:<MOT_DE_PASSE_DB>@localhost:5432/<NOM_PROJET>_dev"
 });
 
 const start = async () => {
@@ -1223,8 +1223,8 @@ export const AppDataSource = new DataSource({
   host: "localhost",
   port: 5432,
   username: "root",
-  password: "test123",
-  database: "domotyk_dev",
+  password: "<MOT_DE_PASSE_DB>",
+  database: "<NOM_PROJET>_dev",
   synchronize: false, // Toujours mettre `false` en production
   logging: false,
   entities: [User],

@@ -31,8 +31,8 @@ struct ingoingData {
 };
 
 // Paramètres WiFi
-const char* ssid = "WhiteSideOfTheWifi";
-const char* password = "1Lb3b@ck!";
+const char* ssid = "<VOTRE_SSID>";
+const char* password = "<MOT_DE_PASSE_WIFI>";
 
 // Définition des pins
 #define DHT_PIN 13 // Pin de la sonde DHT22

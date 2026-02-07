@@ -246,14 +246,14 @@ MQTT_BROKER_URL=mqtt://192.168.0.102:1883
 MQTT_USERNAME=admin
 MQTT_PASSWORD=mot_de_passe
 MQTT_CLIENT_ID=backend-client
-DATABASE_URL=postgresql://root:test123@localhost:5432/domotyk_dev
+DATABASE_URL=postgresql://root:<MOT_DE_PASSE_DB>@localhost:5432/<NOM_PROJET>_dev
 CRON_JOB=true
 ```
 
 **test.env :**
 ```env
 NODE_ENV=test
-DATABASE_URL=postgresql://root:test123@localhost:5432/domotyk_test
+DATABASE_URL=postgresql://root:<MOT_DE_PASSE_DB>@localhost:5432/<NOM_PROJET>_test
 ```
 
 ---
@@ -264,7 +264,7 @@ DATABASE_URL=postgresql://root:test123@localhost:5432/domotyk_test
 
 ```yaml
 version: '3.8'
-name: domotyk
+name: <NOM_PROJET>
 
 services:
   postgres:
@@ -273,8 +273,8 @@ services:
     restart: always
     environment:
       POSTGRES_USER: root
-      POSTGRES_PASSWORD: test123
-      POSTGRES_DB: domotykDB
+      POSTGRES_PASSWORD: <MOT_DE_PASSE_DB>
+      POSTGRES_DB: <NOM_DB>
     ports:
       - "5432:5432"
     volumes:
@@ -283,8 +283,8 @@ services:
 
 **Initialisation (`database/init.sql`) :**
 ```sql
-CREATE DATABASE domotyk_test;
-CREATE DATABASE domotyk_dev;
+CREATE DATABASE <NOM_PROJET>_test;
+CREATE DATABASE <NOM_PROJET>_dev;
 ```
 
 **Démarrage :**
@@ -303,8 +303,8 @@ export const AppDataSource = new DataSource({
   host: "localhost",
   port: 5432,
   username: "root",
-  password: "test123",
-  database: "domotyk_dev",
+  password: "<MOT_DE_PASSE_DB>",
+  database: "<NOM_PROJET>_dev",
   synchronize: false,
   logging: false,
   entities: [User],
@@ -720,7 +720,7 @@ struct SensorData {
 };
 
 // Configuration
-const char* ssid = "WhiteSideOfTheWifi";
+const char* ssid = "<VOTRE_SSID>";
 const char* mqtt_server = "192.168.0.102";
 const char* topic = "test/esp32_dht22";
 ```
