@@ -182,8 +182,9 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "8f73b637009ed82d",
+  "active": "aeeee399e3db7608",
   "lastOpenFiles": [
+    "documentation/L - Guide de Mise en Production.md",
     "annexe a la documentation/ws et wss.md",
     "documentation/W - RÉSUMÉ.md",
     "documentation/J - mise en production.md",
@@ -209,7 +210,6 @@
     "documentation/F - Gestion du chauffage sur le logo.md",
     "documentation/E - le modbus.md",
     "documentation/D - MQTT entre siemens logo et backend.md",
-    "documentation/A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi.md",
     "Présentation/Exemplaire TFE numérisé - ISA - PAGNOULLE PATRICK.pdf",
     "Présentation/Présentation/ChatGPT Image 13 sept. 2025, 12_16_00.png",
     "Présentation/Présentation/Capture d’écran 2025-09-14 à 16.21.18.png",
