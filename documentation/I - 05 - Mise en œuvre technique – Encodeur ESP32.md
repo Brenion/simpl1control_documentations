@@ -203,6 +203,8 @@ password_file /etc/mosquitto/passwd
 
 #### 2.2.5 Fichier `/etc/mosquitto/mosquitto.conf`
 
+> **Installation de base Mosquitto** : [[A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi#1. Installation de Mosquitto sur le Raspberry Pi]]
+
 ```conf
 listener 1883
 allow_anonymous true
@@ -389,6 +391,8 @@ void loop() {
 ---
 
 ##### 2.3.4 Explications simples
+
+> **Note** : Les certificats utilisés dans le code ci-dessus sont créés dans [[#2.2.1 Génération du certificat de l'autorité (CA)]]
 
 - **PROGMEM** stocke directement vos certificats en **mémoire flash**, sans partition ni système de fichiers.
     
