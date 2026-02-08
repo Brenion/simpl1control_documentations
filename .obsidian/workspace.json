@@ -4,31 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "252f0005e9ad7a81",
+        "id": "9e50e74d0a199103",
         "type": "tabs",
         "children": [
           {
-            "id": "8f73b637009ed82d",
+            "id": "8dabc1ae1f767f03",
             "type": "leaf",
             "state": {
-              "type": "graph",
+              "type": "empty",
               "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Vue graphique"
-            }
-          },
-          {
-            "id": "9a7d2ae8ae868a1b",
-            "type": "leaf",
-            "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Vue graphique"
+              "icon": "lucide-file",
+              "title": "Nouvel onglet"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -81,8 +70,7 @@
               "title": "Signets"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -189,11 +177,11 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "9a7d2ae8ae868a1b",
+  "active": "437b83dc6b9878d2",
   "lastOpenFiles": [
-    "documentation/L - Guide de Mise en Production.md",
-    "documentation/00 - Table des Matières.md",
     "documentation/00 - Table des matières.md",
+    "documentation/00 - Table des Matières.md",
+    "documentation/L - Guide de Mise en Production.md",
     "Sans titre",
     "documentation/W - RÉSUMÉ.md",
     "annexe a la documentation/ws et wss.md",
