@@ -13,13 +13,26 @@ Ce guide compile toutes les procédures nécessaires pour déployer le système 
 
 ## 1. Préparation du Serveur (Raspberry Pi)
 
-### 1.1 Configuration SSH
+### 1.1 Configuration SSH 
 
 Générer une clé SSH sur la machine de développement :
-
 ```bash
-ssh-keygen -t ed25519
+ssh-keygen -t ed25519 -f ~/.ssh/raspberry-tfe
+```
+
+Copier la clé publique sur le Raspberry Pi :
+```bash
+# Afficher la clé publique
 cat ~/.ssh/raspberry-tfe.pub
+
+# Copier sur le Raspberry (méthode 1 - ssh-copy-id)
+ssh-copy-id -i ~/.ssh/raspberry-tfe.pub <VOTRE_USER>@<IP_RASPBERRY>
+
+# OU méthode manuelle : sur le Raspberry, ajouter la clé dans ~/.ssh/authorized_keys
+ssh <VOTRE_USER>@<IP_RASPBERRY>
+mkdir -p ~/.ssh && chmod 700 ~/.ssh
+echo "<CONTENU_CLE_PUBLIQUE>" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
 ```
 
 Créer un fichier config pour simplifier la connexion :
