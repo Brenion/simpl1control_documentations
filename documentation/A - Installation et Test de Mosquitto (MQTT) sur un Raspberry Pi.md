@@ -196,6 +196,8 @@ mosquitto_pub -h 192.168.0.102 -t "test/raspberry" -m "Message depuis le Raspber
 
 ## 7. Préparation de l'ESP32 pour l'envoi de messages MQTT
 
+> **Version TLS sécurisée** : Pour une connexion avec certificats sur le port 8883, voir [[I - 05 - Mise en œuvre technique – Encodeur ESP32#2.3 Intégration MQTT TLS uniquement]]
+
 ### Installation des packages dans Arduino IDE
 
 30. Ouvrez Arduino IDE.

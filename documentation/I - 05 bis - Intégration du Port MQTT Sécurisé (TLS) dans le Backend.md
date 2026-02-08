@@ -1,5 +1,7 @@
 ## Intégration du Port MQTT Sécurisé (TLS) dans le Backend
 
+> **Prérequis** : Les certificats doivent être générés avant. Voir [[L - Guide de Mise en Production#2. Génération des Certificats TLS]] ou [[I - 05 - Mise en œuvre technique – Encodeur ESP32#2.2.1 Génération du certificat de l'autorité (CA)]]
+
 Ce document décrit comment configurer le backend pour qu'il écoute à la fois sur le port MQTT non sécurisé (**1883**) et sécurisé (**8883** via TLS/SSL). Les étapes suivantes s'appliquent directement au backend et supposent que les certificats sont déjà générés et que le broker MQTT (ex : Mosquitto) est déjà configuré.
 
 ---

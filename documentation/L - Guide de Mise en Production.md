@@ -90,6 +90,8 @@ Le registre sera accessible sur `<IP_SERVEUR>:5000`.
 
 ### 1.5 Configuration du Docker Context
 
+> **Prérequis** : [[#1.1 Configuration SSH]] doit être fait avant (le context utilise SSH)
+
 Sur la machine de développement, créer un contexte pour le Pi :
 
 ```bash
@@ -230,6 +232,8 @@ sudo mosquitto_passwd /etc/mosquitto/passwd autre_user
 
 ### 3.3 Configuration `/etc/mosquitto/mosquitto.conf`
 
+> Les fichiers `ca.crt`, `server.crt`, `server.key` sont créés dans [[#2. Génération des Certificats TLS]]
+
 ```conf
 # Port non sécurisé (réseau local)
 listener 1883
@@ -282,6 +286,8 @@ FRONTEND_URL=http://<IP_SERVEUR>/
 ```
 
 ### 4.2 Connexion MQTT TLS dans le backend
+
+> **Prérequis** : Certificats clients créés dans [[#2.3 Certificats Clients]] et Mosquitto configuré dans [[#3. Configuration Mosquitto]]
 
 ```typescript
 if(process.env.MQTT_BASE_URL) {
@@ -418,6 +424,8 @@ server {
 ---
 
 ## 6. Docker Compose Production
+
+> **Prérequis** : Registre privé créé dans [[#1.4 Création du registre privé Docker]]
 
 ### 6.1 Fichier `production/docker-compose.production.yml`
 
@@ -609,6 +617,8 @@ echo "Build terminé. Artifacts dans ${ARTIFACTS_DIR}"
 
 ### 7.4 Script `production/push_deploy.sh`
 
+> **Prérequis** : Docker context `tfe` créé dans [[#1.5 Configuration du Docker Context]]
+
 ```sh
 #!/usr/bin/env sh
 # Charge, push et déploie sur le Pi
@@ -682,6 +692,9 @@ xxd -i client-esp-encodeur.key > client_key.h
 ```
 
 ### 8.3 Code ESP32 connexion MQTT TLS
+
+> **Certificats** : Créés dans [[#2.3 Certificats Clients]]
+> **Documentation complète** : [[I - 05 - Mise en œuvre technique – Encodeur ESP32#2.3 Intégration MQTT TLS uniquement]]
 
 ```cpp
 #include <WiFi.h>
