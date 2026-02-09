@@ -69,7 +69,7 @@ Si le service est actif, vous devriez voir une sortie indiquant qu'il est en cou
 Par défaut, Mosquitto écoute uniquement sur `localhost`. Pour permettre l'accès depuis d'autres machines :
 
 12. Éditez le fichier de configuration :
- ```
+```
  sudo nano /etc/mosquitto/mosquitto.conf
 ```
     

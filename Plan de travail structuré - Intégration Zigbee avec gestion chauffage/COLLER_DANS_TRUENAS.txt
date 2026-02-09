@@ -1,0 +1,455 @@
+cat > /tmp/import.sh << 'FINSCRIPT'
+#!/bin/bash
+U="http://192.168.0.167:30034"
+R=$(curl -s -X POST "$U/api/access-tokens" -H "Content-Type: application/json" -d '{"emailOrUsername":"patrickpagnoulle@gmail.com","password":"6i.v4W92NHi4gFLs"}')
+T=$(echo "$R"|grep -o '"item":"[^"]*"'|head -1|sed 's/"item":"//;s/"//')
+if [ -z "$T" ]; then echo "ERREUR AUTH: $R"; exit 1; fi
+echo "Token OK"
+H1="Authorization: Bearer $T"
+H2="Content-Type: application/json"
+xid(){ echo "$1"|grep -o '"id":"[^"]*"'|head -1|sed 's/"id":"//;s/"//'; }
+P=$(curl -s -X POST "$U/api/projects" -H "$H1" -H "$H2" -d '{"name":"Smart Control - Integration Zigbee et Chauffage"}')
+PID=$(xid "$P")
+echo "Projet: $PID"
+mkb(){ xid "$(curl -s -X POST "$U/api/projects/$PID/boards" -H "$H1" -H "$H2" -d "{\"name\":\"$1\",\"position\":$2}")"; }
+mkl(){ xid "$(curl -s -X POST "$U/api/boards/$1/lists" -H "$H1" -H "$H2" -d "{\"name\":\"$2\",\"position\":$3}")"; }
+mkc(){ curl -s -X POST "$U/api/lists/$1/cards" -H "$H1" -H "$H2" -d "{\"name\":\"$2\",\"position\":$3}" >/dev/null; }
+N=0
+phase(){
+local BID=$(mkb "$1" $2)
+echo "Board: $1 -> $BID"
+local sec="" LID="" sn=0 cn=0
+while IFS='|' read -r s t; do
+if [ "$s" != "$sec" ]; then sec="$s"; LID=$(mkl "$BID" "$s" $((sn*65535))); sn=$((sn+1)); cn=0; echo "  Liste: $s"; fi
+mkc "$LID" "$t" $((cn*65535)); cn=$((cn+1)); N=$((N+1))
+[ $((N%20)) -eq 0 ] && echo "  ... $N cartes"
+sleep 0.1
+done
+}
+phase "Phase 0: Audit et preparation (S1-S2|15-20h)" 0 << 'DATA'
+A - Audit du projet existant|[SC-PH0-T01] Cartographier les topics MQTT existants
+A - Audit du projet existant|[SC-PH0-T02] Analyser protocole communication Siemens Logo
+A - Audit du projet existant|[SC-PH0-T03] Verifier convention de nommage
+A - Audit du projet existant|[SC-PH0-T04] Identifier bibliotheques obsoletes backend et frontend
+A - Audit du projet existant|[SC-PH0-T05] Lister tests existants et analyser couverture
+A - Audit du projet existant|[SC-PH0-T06] Documenter architecture actuelle avec diagrammes
+A - Audit du projet existant|[SC-PH0-T07] Analyser structure code frontend existant
+A - Audit du projet existant|[SC-PH0-T08] Analyser structure code backend existant
+B - Remise a niveau technique|[SC-PH0-T09] Mettre a jour Node.js npm et dependances backend
+B - Remise a niveau technique|[SC-PH0-T10] Mettre a jour dependances frontend
+B - Remise a niveau technique|[SC-PH0-T11] Refactoriser parties critiques identifiees
+B - Remise a niveau technique|[SC-PH0-T12] Configurer Vitest couverture tests backend
+B - Remise a niveau technique|[SC-PH0-T13] Configurer Vitest couverture tests frontend
+B - Remise a niveau technique|[SC-PH0-T14] Optimiser requetes PostgreSQL si necessaire
+B - Remise a niveau technique|[SC-PH0-T15] Nettoyer code mort et harmoniser nommage
+B - Remise a niveau technique|[SC-PH0-T16] Generer rapport initial couverture tests baseline
+DATA
+phase "Phase 1: Infrastructure Zigbee et env dev (S3-S5|20-25h)" 65535 << 'DATA'
+A - Config environnement dev|[SC-PH1-T01] Creer config environnement dev (.env.development)
+A - Config environnement dev|[SC-PH1-T02] Verifier config HTTP/WS existante dev local
+A - Config environnement dev|[SC-PH1-T03] Preparer config HTTPS/WSS pour Phase 8
+A - Config environnement dev|[SC-PH1-T04] Verifier config Mosquitto existante
+A - Config environnement dev|[SC-PH1-T05] Documenter config MQTT actuelle
+A - Config environnement dev|[SC-PH1-T06] Documenter procedure basculement dev vers prod
+A - Config environnement dev|[SC-PH1-T07] Creer script verification config environnement
+B - Infrastructure Zigbee|[SC-PH1-T08] Telecharger firmware Ember pour ZBDongle-E
+B - Infrastructure Zigbee|[SC-PH1-T09] Flasher firmware Ember sur cle Sonoff
+B - Infrastructure Zigbee|[SC-PH1-T10] Documenter procedure flash pour futures MAJ
+B - Infrastructure Zigbee|[SC-PH1-T11] Installer Zigbee2MQTT sur Raspberry Pi 5
+B - Infrastructure Zigbee|[SC-PH1-T12] Configurer configuration.yaml Z2M
+B - Infrastructure Zigbee|[SC-PH1-T13] Definir base topic zigbee2mqtt/ et valider architecture
+B - Infrastructure Zigbee|[SC-PH1-T14] Activer frontend Zigbee2MQTT (port 8080)
+B - Infrastructure Zigbee|[SC-PH1-T15] Configurer demarrage auto Zigbee2MQTT (systemd)
+B - Infrastructure Zigbee|[SC-PH1-T16] Optimiser config Z2M pour Raspberry Pi 5
+B - Infrastructure Zigbee|[SC-PH1-T17] Tester connexion Z2M au broker MQTT existant
+B - Infrastructure Zigbee|[SC-PH1-T18] Tester appairage appareil Zigbee de test
+B - Infrastructure Zigbee|[SC-PH1-T19] Verifier cohabitation topics MQTT sans conflits
+DATA
+phase "Phase 2: Modele de donnees et API Devices (S6-S8|25-30h)" 131070 << 'DATA'
+A - Analyse schema existant|[SC-PH2-T01] Analyser schema DB existant
+A - Analyse schema existant|[SC-PH2-T02] Identifier tables existantes a modifier
+A - Analyse schema existant|[SC-PH2-T03] Documenter structure actuelle (ER diagram)
+A - Analyse schema existant|[SC-PH2-T04] Creer plan de migration
+B - Migrations et modeles|[SC-PH2-T05] Migration table rooms
+B - Migrations et modeles|[SC-PH2-T06] Migration table devices
+B - Migrations et modeles|[SC-PH2-T07] Migration table heating_zones
+B - Migrations et modeles|[SC-PH2-T08] Migration table heating_schedules
+B - Migrations et modeles|[SC-PH2-T09] Migration table automations
+B - Migrations et modeles|[SC-PH2-T10] Migration table automation_logs
+B - Migrations et modeles|[SC-PH2-T11] Migration table scenes
+B - Migrations et modeles|[SC-PH2-T12] Migration table device_updates
+B - Migrations et modeles|[SC-PH2-T13] Modele ORM Room avec relations
+B - Migrations et modeles|[SC-PH2-T14] Modele ORM Device avec relations
+B - Migrations et modeles|[SC-PH2-T15] Modele ORM HeatingZone avec relations
+B - Migrations et modeles|[SC-PH2-T16] Modele ORM HeatingSchedule
+B - Migrations et modeles|[SC-PH2-T17] Modele ORM Automation
+B - Migrations et modeles|[SC-PH2-T18] Modele ORM AutomationLog
+B - Migrations et modeles|[SC-PH2-T19] Modele ORM Scene
+B - Migrations et modeles|[SC-PH2-T20] Modele ORM DeviceUpdate
+B - Migrations et modeles|[SC-PH2-T21] MAJ seeders existants compatibilite nouveau schema
+B - Migrations et modeles|[SC-PH2-T22] Seeders realistes rooms (5-8 pieces)
+B - Migrations et modeles|[SC-PH2-T23] Seeders realistes devices (15-20 devices)
+B - Migrations et modeles|[SC-PH2-T24] Seeders realistes heating_zones (3-5 zones)
+B - Migrations et modeles|[SC-PH2-T25] Seeders realistes heating_schedules
+B - Migrations et modeles|[SC-PH2-T26] Seeders realistes automations (5-7)
+B - Migrations et modeles|[SC-PH2-T27] Seeders realistes scenes (3-5)
+C - Impact frontend|[SC-PH2-T28] Analyser code frontend existant
+C - Impact frontend|[SC-PH2-T29] Identifier composants impactes par modifs schema
+C - Impact frontend|[SC-PH2-T30] Documenter adaptations necessaires frontend
+C - Impact frontend|[SC-PH2-T31] Adapter interfaces TypeScript pour nouveaux modeles
+C - Impact frontend|[SC-PH2-T32] Adapter services API frontend nouvelles routes
+C - Impact frontend|[SC-PH2-T33] Adapter stores/state management nouveaux modeles
+C - Impact frontend|[SC-PH2-T34] Adapter composants existants ancien schema
+C - Impact frontend|[SC-PH2-T35] Creer composants frontend basiques nouvelles entites
+C - Impact frontend|[SC-PH2-T36] Tester frontend avec nouveau schema et seeders
+D - API REST Gestion appareils|[SC-PH2-T37] Endpoint GET /api/devices avec filtres
+D - API REST Gestion appareils|[SC-PH2-T38] Endpoint GET /api/devices/:id details
+D - API REST Gestion appareils|[SC-PH2-T39] Endpoint POST /api/devices enregistrement
+D - API REST Gestion appareils|[SC-PH2-T40] Endpoint PUT /api/devices/:id modification
+D - API REST Gestion appareils|[SC-PH2-T41] Endpoint DELETE /api/devices/:id unpair Zigbee
+D - API REST Gestion appareils|[SC-PH2-T42] Endpoint POST /api/devices/:id/command MQTT
+D - API REST Gestion appareils|[SC-PH2-T43] Endpoint POST /api/devices/pairing/start
+D - API REST Gestion appareils|[SC-PH2-T44] Endpoint POST /api/devices/pairing/stop
+D - API REST Gestion appareils|[SC-PH2-T45] Endpoint GET /api/devices/:id/state
+D - API REST Gestion appareils|[SC-PH2-T46] Endpoint GET /api/rooms liste pieces
+D - API REST Gestion appareils|[SC-PH2-T47] Endpoint POST /api/rooms creer piece
+D - API REST Gestion appareils|[SC-PH2-T48] Validation payloads (Zod/Joi) tous endpoints
+D - API REST Gestion appareils|[SC-PH2-T49] Tests unitaires controllers devices
+E - Services MQTT et sync|[SC-PH2-T50] Etendre MQTT Listener pour zigbee2mqtt/#
+E - Services MQTT et sync|[SC-PH2-T51] Verifier MQTT Listener pour heating/#
+E - Services MQTT et sync|[SC-PH2-T52] MAJ etats devices en DB depuis MQTT
+E - Services MQTT et sync|[SC-PH2-T53] Detection nouveaux appareils Zigbee auto
+E - Services MQTT et sync|[SC-PH2-T54] Gestion online/offline timeout 5 min
+E - Services MQTT et sync|[SC-PH2-T55] Service sync au demarrage (fetch Z2M bridge/devices)
+E - Services MQTT et sync|[SC-PH2-T56] Detection appareils orphelins (DB mais pas Z2M)
+E - Services MQTT et sync|[SC-PH2-T57] Service WebSocket broadcast etats temps reel
+E - Services MQTT et sync|[SC-PH2-T58] Tests unitaires services MQTT (mock broker)
+F - MAJ firmware IoT|[SC-PH2-T59] Endpoint GET /api/devices/:id/updates check OTA
+F - MAJ firmware IoT|[SC-PH2-T60] Endpoint POST /api/devices/:id/update lancer OTA
+F - MAJ firmware IoT|[SC-PH2-T61] Endpoint GET /api/devices/:id/update/status progression
+F - MAJ firmware IoT|[SC-PH2-T62] Service verification periodique (cron hebdo)
+F - MAJ firmware IoT|[SC-PH2-T63] Gestion progression via MQTT Z2M
+F - MAJ firmware IoT|[SC-PH2-T64] Notification utilisateur (WebSocket) progression
+F - MAJ firmware IoT|[SC-PH2-T65] Logging historique updates (table device_updates)
+F - MAJ firmware IoT|[SC-PH2-T66] Tests unitaires service updates
+DATA
+phase "Phase 3: Gestion du chauffage (S9-S12|35-40h)" 196605 << 'DATA'
+A - API REST Chauffage|[SC-PH3-T01] Endpoint GET /api/heating/zones liste
+A - API REST Chauffage|[SC-PH3-T02] Endpoint POST /api/heating/zones creer
+A - API REST Chauffage|[SC-PH3-T03] Endpoint PUT /api/heating/zones/:id modifier
+A - API REST Chauffage|[SC-PH3-T04] Endpoint DELETE /api/heating/zones/:id supprimer
+A - API REST Chauffage|[SC-PH3-T05] Endpoint GET /api/heating/zones/:id/status temps reel
+A - API REST Chauffage|[SC-PH3-T06] Endpoint POST /api/heating/zones/:id/override forcer temp
+A - API REST Chauffage|[SC-PH3-T07] Endpoint GET /api/heating/schedules liste plannings
+A - API REST Chauffage|[SC-PH3-T08] Endpoint POST /api/heating/schedules creer
+A - API REST Chauffage|[SC-PH3-T09] Endpoint PUT /api/heating/schedules/:id modifier
+A - API REST Chauffage|[SC-PH3-T10] Endpoint POST /api/heating/schedules/:id/activate
+A - API REST Chauffage|[SC-PH3-T11] Validation payloads chauffage
+A - API REST Chauffage|[SC-PH3-T12] Tests unitaires controllers chauffage
+B - Logique de regulation|[SC-PH3-T13] Service regulation (boucle 30s)
+B - Logique de regulation|[SC-PH3-T14] Logique calcul demande par zone (hysteresis 0.5C)
+B - Logique de regulation|[SC-PH3-T15] Agregation demandes multi-zones
+B - Logique de regulation|[SC-PH3-T16] Commande vannes TRV Zigbee via MQTT
+B - Logique de regulation|[SC-PH3-T17] Communication MQTT avec Siemens Logo
+B - Logique de regulation|[SC-PH3-T18] Interface abstraite HeatingSource
+B - Logique de regulation|[SC-PH3-T19] Implementer SiemensLogoHeatingSource
+B - Logique de regulation|[SC-PH3-T20] Structure HeatPumpHeatingSource (documentation)
+B - Logique de regulation|[SC-PH3-T21] Watchdog Logo (alerte si offline 2min)
+B - Logique de regulation|[SC-PH3-T22] Logging decisions regulation
+B - Logique de regulation|[SC-PH3-T23] Gerer priorites zones (mode antigel etc)
+B - Logique de regulation|[SC-PH3-T24] Tests unitaires service regulation
+B - Logique de regulation|[SC-PH3-T25] Tests integration communication Logo
+C - Preparation installation|[SC-PH3-T26] Analyser cablage actuel chauffage
+C - Preparation installation|[SC-PH3-T27] Identifier entrees/sorties Logo necessaires
+C - Preparation installation|[SC-PH3-T28] Schema cablage detaille Logo Relais Chaudiere
+C - Preparation installation|[SC-PH3-T29] Systeme decouplage pour remplacement chaudiere
+C - Preparation installation|[SC-PH3-T30] Documenter securites electriques necessaires
+C - Preparation installation|[SC-PH3-T31] Procedure installation avec photos/schemas
+C - Preparation installation|[SC-PH3-T32] Prevoir emplacement physique Logo + alimentation
+C - Preparation installation|[SC-PH3-T33] Checklist validation post-installation
+C - Preparation installation|[SC-PH3-T34] Tester connexion MQTT Logo Raspberry Pi
+DATA
+phase "Phase 4: Automatisations (S13-S15|25-30h)" 262140 << 'DATA'
+A - API REST Automatisations|[SC-PH4-T01] Endpoint GET /api/automations avec filtres
+A - API REST Automatisations|[SC-PH4-T02] Endpoint POST /api/automations creer
+A - API REST Automatisations|[SC-PH4-T03] Endpoint PUT /api/automations/:id modifier
+A - API REST Automatisations|[SC-PH4-T04] Endpoint DELETE /api/automations/:id supprimer
+A - API REST Automatisations|[SC-PH4-T05] Endpoint PATCH /api/automations/:id/toggle
+A - API REST Automatisations|[SC-PH4-T06] Endpoint GET /api/automations/:id/logs pagination
+A - API REST Automatisations|[SC-PH4-T07] Endpoint POST /api/automations/:id/test simulation
+A - API REST Automatisations|[SC-PH4-T08] Validation payloads automatisations
+A - API REST Automatisations|[SC-PH4-T09] Tests unitaires controllers automatisations
+B - Moteur automatisation|[SC-PH4-T10] Service moteur automatisation
+B - Moteur automatisation|[SC-PH4-T11] Chargement automatisations actives en memoire
+B - Moteur automatisation|[SC-PH4-T12] Ecoute evenements MQTT tous devices
+B - Moteur automatisation|[SC-PH4-T13] Identification automatisations correspondantes
+B - Moteur automatisation|[SC-PH4-T14] Evaluation conditions (heure jour etat temperature)
+B - Moteur automatisation|[SC-PH4-T15] Execution actions (MQTT scene chauffage)
+B - Moteur automatisation|[SC-PH4-T16] Logging execution avec metriques
+B - Moteur automatisation|[SC-PH4-T17] Declencheurs evenement appareil (etat bouton)
+B - Moteur automatisation|[SC-PH4-T18] Declencheurs changement temperature/luminosite
+B - Moteur automatisation|[SC-PH4-T19] Declencheurs intervalle temps (cron-like)
+B - Moteur automatisation|[SC-PH4-T20] Declencheurs evenements systeme (lever/coucher soleil)
+B - Moteur automatisation|[SC-PH4-T21] Conditions comparaison (== < > !=)
+B - Moteur automatisation|[SC-PH4-T22] Combinaisons logiques (AND OR NOT)
+B - Moteur automatisation|[SC-PH4-T23] Actions avec delais (wait X seconds)
+B - Moteur automatisation|[SC-PH4-T24] Gestion priorites (conflits automatisations)
+B - Moteur automatisation|[SC-PH4-T25] Optimiser performances (debouncing anti-boucles)
+B - Moteur automatisation|[SC-PH4-T26] Tests unitaires moteur automatisation
+B - Moteur automatisation|[SC-PH4-T27] Tester charge CPU 20+ automatisations actives
+DATA
+phase "Phase 5: Scenes (S16-S17|15-20h)" 327675 << 'DATA'
+A - API REST Scenes|[SC-PH5-T01] Endpoint GET /api/scenes liste
+A - API REST Scenes|[SC-PH5-T02] Endpoint POST /api/scenes creer manuelle ou capture
+A - API REST Scenes|[SC-PH5-T03] Endpoint PUT /api/scenes/:id modifier
+A - API REST Scenes|[SC-PH5-T04] Endpoint DELETE /api/scenes/:id supprimer
+A - API REST Scenes|[SC-PH5-T05] Endpoint POST /api/scenes/:id/activate
+A - API REST Scenes|[SC-PH5-T06] Endpoint POST /api/scenes/capture snapshot
+A - API REST Scenes|[SC-PH5-T07] Validation payloads scenes
+A - API REST Scenes|[SC-PH5-T08] Tests unitaires controllers scenes
+B - Service activation scenes|[SC-PH5-T09] Service activation scene
+B - Service activation scenes|[SC-PH5-T10] Recuperation device_states depuis DB
+B - Service activation scenes|[SC-PH5-T11] Publication commandes MQTT tous devices
+B - Service activation scenes|[SC-PH5-T12] Inclure etats zones chauffage dans scenes
+B - Service activation scenes|[SC-PH5-T13] Ordre execution sequentiel anti-surcharge
+B - Service activation scenes|[SC-PH5-T14] Timeout par device (3s max)
+B - Service activation scenes|[SC-PH5-T15] Logging activation (succes/echec par device)
+B - Service activation scenes|[SC-PH5-T16] Integrer scenes comme actions automatisations
+B - Service activation scenes|[SC-PH5-T17] Tests unitaires service activation scenes
+B - Service activation scenes|[SC-PH5-T18] Tester scenes complexes (50+ devices)
+DATA
+phase "Phase 6: Frontend complet (S18-S21|40-50h)" 393210 << 'DATA'
+A - Architecture frontend|[SC-PH6-T01] Configurer framework frontend avec Vite
+A - Architecture frontend|[SC-PH6-T02] Configurer state management (Zustand/Pinia)
+A - Architecture frontend|[SC-PH6-T03] Configurer client WebSocket WSS temps reel
+A - Architecture frontend|[SC-PH6-T04] Configurer router SPA
+A - Architecture frontend|[SC-PH6-T05] Configurer build optimise (code splitting lazy loading)
+A - Architecture frontend|[SC-PH6-T06] Definir breakpoints responsive
+A - Architecture frontend|[SC-PH6-T07] Creer design system (palette couleurs variables CSS)
+A - Architecture frontend|[SC-PH6-T08] Creer bibliotheque icones
+B - Composants reutilisables|[SC-PH6-T09] Composant Button (primary/secondary/danger)
+B - Composants reutilisables|[SC-PH6-T10] Composant Card
+B - Composants reutilisables|[SC-PH6-T11] Composant Input (text number slider)
+B - Composants reutilisables|[SC-PH6-T12] Composant Switch/Toggle
+B - Composants reutilisables|[SC-PH6-T13] Composant Modal/Dialog
+B - Composants reutilisables|[SC-PH6-T14] Composant Toast (notifications)
+B - Composants reutilisables|[SC-PH6-T15] Composant Dropdown/Select
+B - Composants reutilisables|[SC-PH6-T16] Composant Badge
+B - Composants reutilisables|[SC-PH6-T17] Composants etats (Loading Empty Error)
+B - Composants reutilisables|[SC-PH6-T18] Tests unitaires composants reutilisables
+C - Dashboard principal|[SC-PH6-T19] Layout responsive dashboard (CSS Grid/Flexbox)
+C - Dashboard principal|[SC-PH6-T20] Section vue rapide (meteo resume chauffage alertes)
+C - Dashboard principal|[SC-PH6-T21] Section pieces (cartes cliquables)
+C - Dashboard principal|[SC-PH6-T22] Section raccourcis scenes
+C - Dashboard principal|[SC-PH6-T23] Composant DeviceCard (nom icone etat controle)
+C - Dashboard principal|[SC-PH6-T24] Badge update disponible sur cards
+C - Dashboard principal|[SC-PH6-T25] Indicateur online/offline
+C - Dashboard principal|[SC-PH6-T26] Filtres (par piece type favoris)
+C - Dashboard principal|[SC-PH6-T27] MAJ temps reel via WebSocket
+C - Dashboard principal|[SC-PH6-T28] Switch mode liste/grille
+C - Dashboard principal|[SC-PH6-T29] Tester dashboard mobile/tablette/desktop
+D - Gestion appareils|[SC-PH6-T30] Page liste appareils avec recherche et filtres
+D - Gestion appareils|[SC-PH6-T31] Page details appareil (infos controles historique)
+D - Gestion appareils|[SC-PH6-T32] Graphique historique etats (24h)
+D - Gestion appareils|[SC-PH6-T33] Modal Ajouter appareil avec timer visuel
+D - Gestion appareils|[SC-PH6-T34] Detection temps reel nouveaux appareils
+D - Gestion appareils|[SC-PH6-T35] Edition inline pour renommage
+D - Gestion appareils|[SC-PH6-T36] Drag and drop pour assigner piece
+D - Gestion appareils|[SC-PH6-T37] Modal suppression avec confirmation
+D - Gestion appareils|[SC-PH6-T38] MAJ firmware avec progression
+E - Gestion chauffage|[SC-PH6-T39] Page dediee Chauffage
+E - Gestion chauffage|[SC-PH6-T40] Composant carte zone (temp consigne mode demande)
+E - Gestion chauffage|[SC-PH6-T41] Slider/boutons ajustement temperature
+E - Gestion chauffage|[SC-PH6-T42] Toggle mode (auto/manuel/off)
+E - Gestion chauffage|[SC-PH6-T43] Indicateur visuel demande chauffage (flamme)
+E - Gestion chauffage|[SC-PH6-T44] Vue globale (etat Logo graphique multi-zones)
+E - Gestion chauffage|[SC-PH6-T45] Graphique temperatures toutes zones (24h)
+E - Gestion chauffage|[SC-PH6-T46] Builder visuel planning hebdomadaire
+E - Gestion chauffage|[SC-PH6-T47] Timeline avec blocs glissables
+E - Gestion chauffage|[SC-PH6-T48] Templates predefinis plannings
+E - Gestion chauffage|[SC-PH6-T49] Duplication planning entre zones
+E - Gestion chauffage|[SC-PH6-T50] Modal override temperature temporaire
+F - Automatisations Interface|[SC-PH6-T51] Page liste automatisations
+F - Automatisations Interface|[SC-PH6-T52] Builder visuel type IF-THEN
+F - Automatisations Interface|[SC-PH6-T53] Section declencheur (dropdown categories)
+F - Automatisations Interface|[SC-PH6-T54] Section conditions (empilage AND/OR)
+F - Automatisations Interface|[SC-PH6-T55] Section actions (liste drag and drop)
+F - Automatisations Interface|[SC-PH6-T56] Configuration visuelle par action
+F - Automatisations Interface|[SC-PH6-T57] Previsualisation logique en francais
+F - Automatisations Interface|[SC-PH6-T58] Bouton Tester (simulation)
+F - Automatisations Interface|[SC-PH6-T59] Toggle enable/disable visible
+F - Automatisations Interface|[SC-PH6-T60] Page historique execution avec filtres
+F - Automatisations Interface|[SC-PH6-T61] Templates automatisations suggeres
+G - Scenes Interface|[SC-PH6-T62] Page liste scenes avec cartes
+G - Scenes Interface|[SC-PH6-T63] Apercu devices concernes (miniatures)
+G - Scenes Interface|[SC-PH6-T64] Bouton activation gros et tactile (60x60px)
+G - Scenes Interface|[SC-PH6-T65] Modal creation mode Capturer
+G - Scenes Interface|[SC-PH6-T66] Modal creation mode Configurer manuellement
+G - Scenes Interface|[SC-PH6-T67] Previsualisation avant sauvegarde
+G - Scenes Interface|[SC-PH6-T68] Edition etats devices individuels
+G - Scenes Interface|[SC-PH6-T69] Systeme favoris (epinglage dashboard)
+H - Optimisations responsive|[SC-PH6-T70] Menu hamburger sur mobile
+H - Optimisations responsive|[SC-PH6-T71] Optimiser controles tactiles (min 44x44px)
+H - Optimisations responsive|[SC-PH6-T72] Tester sur iPhone SE (petit ecran)
+H - Optimisations responsive|[SC-PH6-T73] Tester sur Android mid-range
+H - Optimisations responsive|[SC-PH6-T74] Tester sur iPad
+H - Optimisations responsive|[SC-PH6-T75] Tester sur Desktop 1080p et 1440p
+H - Optimisations responsive|[SC-PH6-T76] Optimiser images (WebP lazy loading)
+H - Optimisations responsive|[SC-PH6-T77] Animations CSS subtiles
+H - Optimisations responsive|[SC-PH6-T78] Debounce sur inputs (search sliders)
+H - Optimisations responsive|[SC-PH6-T79] Systeme notifications toast
+H - Optimisations responsive|[SC-PH6-T80] Dark mode (optionnel)
+DATA
+phase "Phase 7: Tests optimisation documentation (S22-S24|25-30h)" 458745 << 'DATA'
+A - Tests backend|[SC-PH7-T01] Tests unitaires services metier (auto chauffage)
+A - Tests backend|[SC-PH7-T02] Tests unitaires utilitaires (helpers validators)
+A - Tests backend|[SC-PH7-T03] Tests integration tous endpoints API REST
+A - Tests backend|[SC-PH7-T04] Tests authentification/autorisation
+A - Tests backend|[SC-PH7-T05] Tests gestion erreurs
+A - Tests backend|[SC-PH7-T06] Tests MQTT avec mock broker
+A - Tests backend|[SC-PH7-T07] Tests latence communication MQTT
+A - Tests backend|[SC-PH7-T08] Tests scenarios automatisations complexes
+A - Tests backend|[SC-PH7-T09] Tests gestion conflits automatisations
+A - Tests backend|[SC-PH7-T10] Tests performance (100+ rules)
+A - Tests backend|[SC-PH7-T11] Tests simulation variations temperature
+A - Tests backend|[SC-PH7-T12] Tests validation logique hysteresis
+A - Tests backend|[SC-PH7-T13] Tests agregation demandes multi-zones
+A - Tests backend|[SC-PH7-T14] Generer rapport couverture 70%+
+B - Tests frontend|[SC-PH7-T15] Tests composants critiques (DeviceCard AutoBuilder)
+B - Tests frontend|[SC-PH7-T16] Tests interactions utilisateur (clics inputs)
+B - Tests frontend|[SC-PH7-T17] Tests E2E Playwright ajouter appareil Zigbee
+B - Tests frontend|[SC-PH7-T18] Tests E2E creer automatisation
+B - Tests frontend|[SC-PH7-T19] Tests E2E activer scene
+B - Tests frontend|[SC-PH7-T20] Tests E2E configurer zone chauffage
+B - Tests frontend|[SC-PH7-T21] Tester cross-browser (Chrome Firefox Safari)
+B - Tests frontend|[SC-PH7-T22] Tester mobile viewport
+C - Tests systeme|[SC-PH7-T23] Tester charge 30+ devices simultanes
+C - Tests systeme|[SC-PH7-T24] Tester 50+ automatisations actives
+C - Tests systeme|[SC-PH7-T25] Tester 10 zones chauffage
+C - Tests systeme|[SC-PH7-T26] Mesurer latence CPU RAM sous charge
+C - Tests systeme|[SC-PH7-T27] Tester perte connexion MQTT (reconnexion auto)
+C - Tests systeme|[SC-PH7-T28] Tester crash Zigbee2MQTT (redemarrage sync)
+C - Tests systeme|[SC-PH7-T29] Tester coupure electrique (persistance etats)
+C - Tests systeme|[SC-PH7-T30] Tester devices offline (timeouts fallbacks)
+C - Tests systeme|[SC-PH7-T31] Tester 5+ marques devices Zigbee compatibilite
+C - Tests systeme|[SC-PH7-T32] Tester OTA updates
+C - Tests systeme|[SC-PH7-T33] Tester stabilite reseau maille Zigbee (mesh)
+C - Tests systeme|[SC-PH7-T34] Scanner vulnerabilites (npm audit Snyk)
+C - Tests systeme|[SC-PH7-T35] Tester injection SQL (parameterized queries)
+C - Tests systeme|[SC-PH7-T36] Tester MQTT ACL (acces non autorise)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T37] Profiler htop vmstat (bottlenecks)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T38] Profiler Node.js avec --inspect
+D - Optimisation Raspberry Pi 5|[SC-PH7-T39] Optimiser requetes DB (ajouter indexes)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T40] Analyser requetes lentes (EXPLAIN ANALYZE)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T41] Optimiser connection pooling PostgreSQL
+D - Optimisation Raspberry Pi 5|[SC-PH7-T42] Configurer logs production (level error)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T43] Activer compression responses API (gzip)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T44] Optimiser QoS MQTT (0 etats 1 commandes)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T45] Configurer retained messages MQTT
+D - Optimisation Raspberry Pi 5|[SC-PH7-T46] Debouncing publish MQTT
+D - Optimisation Raspberry Pi 5|[SC-PH7-T47] Reduire polling interval Z2M si necessaire
+D - Optimisation Raspberry Pi 5|[SC-PH7-T48] Desactiver frontend Z2M
+D - Optimisation Raspberry Pi 5|[SC-PH7-T49] Configurer log level Z2M warning
+D - Optimisation Raspberry Pi 5|[SC-PH7-T50] Configurer logrotate (rotation logs)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T51] Optimiser swappiness (vm.swappiness=10)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T52] Configurer PM2 gestion process
+D - Optimisation Raspberry Pi 5|[SC-PH7-T53] Configurer watchdog systemd (auto-restart)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T54] Script monitoring ressources (alerte 80%+)
+D - Optimisation Raspberry Pi 5|[SC-PH7-T55] Health check endpoint /api/health
+D - Optimisation Raspberry Pi 5|[SC-PH7-T56] Valider CPU moins de 60% utilisation normale
+E - Documentation|[SC-PH7-T57] Guide installation (prerequis etapes troubleshooting)
+E - Documentation|[SC-PH7-T58] Documenter flash firmware Sonoff ZBDongle-E
+E - Documentation|[SC-PH7-T59] Documenter installation Zigbee2MQTT
+E - Documentation|[SC-PH7-T60] Guide utilisateur (premiers pas screenshots)
+E - Documentation|[SC-PH7-T61] Documenter ajout appareil
+E - Documentation|[SC-PH7-T62] Documenter creation automatisation (exemples)
+E - Documentation|[SC-PH7-T63] Documenter creation scene
+E - Documentation|[SC-PH7-T64] Documenter config chauffage (zones plannings)
+E - Documentation|[SC-PH7-T65] Documenter MAJ appareil
+E - Documentation|[SC-PH7-T66] Creer FAQ
+E - Documentation|[SC-PH7-T67] Documentation API (Swagger/OpenAPI)
+E - Documentation|[SC-PH7-T68] Documenter tous endpoints avec exemples cURL
+E - Documentation|[SC-PH7-T69] Documenter schemas requetes/reponses
+E - Documentation|[SC-PH7-T70] Documenter codes erreur
+E - Documentation|[SC-PH7-T71] Diagrammes architecture (C4 niveau 2-3)
+E - Documentation|[SC-PH7-T72] Schema base de donnees (ER diagram)
+E - Documentation|[SC-PH7-T73] Documenter flow MQTT (topics payloads)
+E - Documentation|[SC-PH7-T74] Guide contribution (conventions PR process)
+E - Documentation|[SC-PH7-T75] Flowchart automatisation
+E - Documentation|[SC-PH7-T76] Flowchart regulation chauffage
+E - Documentation|[SC-PH7-T77] Schema cablage Siemens Logo
+DATA
+phase "Phase 8: Securisation et deploiement prod (S25-S27|25-30h)" 524280 << 'DATA'
+A - Securisation HTTPS/WSS|[SC-PH8-T01] Generer certificats SSL
+A - Securisation HTTPS/WSS|[SC-PH8-T02] Configurer Nginx reverse proxy HTTPS
+A - Securisation HTTPS/WSS|[SC-PH8-T03] Configurer Nginx pour WSS
+A - Securisation HTTPS/WSS|[SC-PH8-T04] Migrer connexions WebSocket vers WSS
+A - Securisation HTTPS/WSS|[SC-PH8-T05] Renouvellement automatique certificats
+A - Securisation HTTPS/WSS|[SC-PH8-T06] Configurer Mosquitto avec TLS (port 8883)
+A - Securisation HTTPS/WSS|[SC-PH8-T07] Definir ACL Mosquitto production strictes
+A - Securisation HTTPS/WSS|[SC-PH8-T08] Creer users MQTT mots de passe forts
+A - Securisation HTTPS/WSS|[SC-PH8-T09] Tester performance SSL/TLS Raspberry Pi 5
+B - Securisation application|[SC-PH8-T10] Authentification JWT ou session
+B - Securisation application|[SC-PH8-T11] Rate limiting (express-rate-limit)
+B - Securisation application|[SC-PH8-T12] Validation inputs stricte (Zod/Joi)
+B - Securisation application|[SC-PH8-T13] Headers securite (helmet.js)
+B - Securisation application|[SC-PH8-T14] Service verif MAJ systeme (GitHub releases)
+B - Securisation application|[SC-PH8-T15] Signature paquets (verification hash)
+B - Securisation application|[SC-PH8-T16] Rollback automatique si echec update
+B - Securisation application|[SC-PH8-T17] Configurer firewall ufw (port 443 seulement)
+B - Securisation application|[SC-PH8-T18] Configurer fail2ban monitoring intrusion
+B - Securisation application|[SC-PH8-T19] Preparer config VPN WireGuard (doc future)
+C - Deploiement production|[SC-PH8-T20] Backup complet config developpement
+C - Deploiement production|[SC-PH8-T21] Clean install Raspberry Pi OS stable
+C - Deploiement production|[SC-PH8-T22] Hardening securite OS (SSH keys fail2ban ufw)
+C - Deploiement production|[SC-PH8-T23] Installer stack complete selon guide
+C - Deploiement production|[SC-PH8-T24] Configurer variables env production
+C - Deploiement production|[SC-PH8-T25] Build production frontend optimise
+C - Deploiement production|[SC-PH8-T26] Configurer systemd services (backend Z2M Mosquitto)
+C - Deploiement production|[SC-PH8-T27] Configurer PM2 pour backend Node.js
+C - Deploiement production|[SC-PH8-T28] Tests smoke post-deploiement
+C - Deploiement production|[SC-PH8-T29] Backups automatiques DB (cron PostgreSQL)
+C - Deploiement production|[SC-PH8-T30] Configurer monitoring (script alerte ressources)
+D - Installation physique|[SC-PH8-T31] Preparer materiel (Logo relais cables outils)
+D - Installation physique|[SC-PH8-T32] Couper disjoncteur general (securite)
+D - Installation physique|[SC-PH8-T33] Installer Logo dans tableau/boitier dedie
+D - Installation physique|[SC-PH8-T34] Cabler alimentation Logo
+D - Installation physique|[SC-PH8-T35] Cabler relais commande chaudiere selon schema
+D - Installation physique|[SC-PH8-T36] Connecter feedback etat chaudiere (optionnel)
+D - Installation physique|[SC-PH8-T37] Verifier polarites serrage isolation
+D - Installation physique|[SC-PH8-T38] Tester continuite au multimetre
+D - Installation physique|[SC-PH8-T39] Programmer logique Logo (Logo Soft Comfort)
+D - Installation physique|[SC-PH8-T40] Tester E/S Logo (inputs outputs)
+D - Installation physique|[SC-PH8-T41] Configurer communication Ethernet/WiFi Logo
+D - Installation physique|[SC-PH8-T42] Configurer client MQTT dans Logo
+D - Installation physique|[SC-PH8-T43] Verifier connexion Logo Mosquitto
+D - Installation physique|[SC-PH8-T44] Tester commandes MQTT Logo chaudiere
+D - Installation physique|[SC-PH8-T45] Valider retours etats (feedback)
+D - Installation physique|[SC-PH8-T46] Calibrer vannes thermostatiques Zigbee
+D - Installation physique|[SC-PH8-T47] Test fonctionnel demande zone Logo chaudiere ON
+D - Installation physique|[SC-PH8-T48] Test arret demande chaudiere OFF
+D - Installation physique|[SC-PH8-T49] Tester securites (coupure MQTT Logo offline)
+D - Installation physique|[SC-PH8-T50] Tester avec plannings horaires reels
+D - Installation physique|[SC-PH8-T51] Mesurer latence reaction bout-en-bout
+E - Config finale et validation|[SC-PH8-T52] Apairer tous devices Zigbee finaux
+E - Config finale et validation|[SC-PH8-T53] Renommer devices selon convention
+E - Config finale et validation|[SC-PH8-T54] Assigner devices aux pieces
+E - Config finale et validation|[SC-PH8-T55] Verifier qualite signal Zigbee (LQI RSSI)
+E - Config finale et validation|[SC-PH8-T56] Ajuster emplacements si signal faible
+E - Config finale et validation|[SC-PH8-T57] Tester controle depuis interface chaque device
+E - Config finale et validation|[SC-PH8-T58] Creer toutes pieces/zones chauffage reelles
+E - Config finale et validation|[SC-PH8-T59] Configurer plannings chauffage quotidiens
+E - Config finale et validation|[SC-PH8-T60] Creer automatisations maison (besoins reels)
+E - Config finale et validation|[SC-PH8-T61] Creer scenes utiles (depart retour nuit film)
+E - Config finale et validation|[SC-PH8-T62] Tests utilisateur final (famille/cohabitants)
+E - Config finale et validation|[SC-PH8-T63] Periode observation 7 jours (noter bugs)
+E - Config finale et validation|[SC-PH8-T64] Ajustements parametres chauffage
+E - Config finale et validation|[SC-PH8-T65] Valider stabilite (uptime crashs)
+E - Config finale et validation|[SC-PH8-T66] Documenter anomalies et resolutions
+E - Config finale et validation|[SC-PH8-T67] Formation utilisateurs (demonstration interface)
+E - Config finale et validation|[SC-PH8-T68] Creer guide urgence (que faire si...)
+E - Config finale et validation|[SC-PH8-T69] Backup final configuration production
+DATA
+echo "=== IMPORT TERMINE: $N cartes creees ==="
+FINSCRIPT
+bash /tmp/import.sh

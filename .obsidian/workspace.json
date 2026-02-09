@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "9e50e74d0a199103",
+        "id": "d5685ee617b78b3c",
         "type": "tabs",
         "children": [
           {
-            "id": "8dabc1ae1f767f03",
+            "id": "f9e05cc0967a2903",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 1 - Infrastructure Zigbee et environnement développement.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "Nouvel onglet"
+              "title": "PHASE 1 - Infrastructure Zigbee et environnement développement"
             }
           }
         ]
@@ -74,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 556.5
+    "width": 324.5
   },
   "right": {
     "id": "6c3f2f741b5f8a30",
@@ -179,51 +183,51 @@
   },
   "active": "437b83dc6b9878d2",
   "lastOpenFiles": [
+    "Sans titre 1.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 1 - Infrastructure Zigbee et environnement développement.md",
+    "Sans titre.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 0 - Audit et préparation.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/00 - Plan de travail pour l'intégration Zigbee dans votre projet MQTT.md",
     "documentation/00 - Table des matières.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/~$SC_UserStories_Taches.xlsx",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_DANS_TRUENAS.txt",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_4_LANCER.txt",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_3.txt",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_2.txt",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_1.txt",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/import_planka.sh",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/import_planka.py",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/~$Smart_Control_User_Stories_Taches.xlsx",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/SC_UserStories_Taches.xlsx",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 8 - Sécurisation et déploiement production.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 7 - Tests, optimisation et documentation.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 2 - Modèle de données et API Devices.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 3 - Gestion du chauffage.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/RÉCAPITULATIF TIMING et RÉTRO-PLANNING.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 6 - Frontend complet.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 5 - Scènes.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 4 - Automatisations.md",
+    "documentation/B - Documentation du Backend.md",
+    "documentation/A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi.md",
+    "documentation/C - MQTT, ESP32 et Backend.md",
     "documentation/00 - Table des Matières.md",
     "documentation/L - Guide de Mise en Production.md",
-    "Sans titre",
     "documentation/W - RÉSUMÉ.md",
     "annexe a la documentation/ws et wss.md",
     "documentation/J - mise en production.md",
-    "documentation/B - Documentation du Backend.md",
-    "documentation/C - MQTT, ESP32 et Backend.md",
     "documentation/K - Récapitulatif production.md",
     "documentation/Z - Annexe 6 - Structure backend.md",
     "documentation/Z - Annexe 5 - Contrôle d’accès – Spécification fonctionnelle.md",
     "documentation/Z - Annexe 4 - tableau_final_heures_minutes pour algo LOGO.md",
-    "annexe a la documentation/Architecture MQTT Topics.md",
-    "annexe a la documentation/Commande SSL-TLS.md",
-    "documentation/I - 05 bis - Intégration du Port MQTT Sécurisé (TLS) dans le Backend.md",
-    "documentation/I - 05 - Mise en œuvre technique – Encodeur ESP32.md",
-    "documentation/I - 04 - Intégration MQTT Backend - Lecteur de badge (access-reader).md",
-    "documentation/I - 03 - API backend - POST badges.md",
-    "documentation/I - 02 -PasswordService – Fiche Technique (revenir dessus).md",
-    "documentation/I - 02 - Dérivation de clé AES128 avec HKDF (HKDF-SHA256).md",
-    "documentation/I - 01 - Gestion des badges et accessLog (Entités et Seeder).md",
-    "documentation/I - 00bis - Système d’Accès par Badge AES‑128 (TFE).md",
-    "documentation/I - 00 - Plan d'action complet – Système de badge AES128 avec backend Fastify et tests réels.md",
-    "documentation/H - Système d'accès RFID.md",
-    "documentation/G - Implémentation du Modbus dans le projet Fastify (abandonné).md",
-    "documentation/F - Gestion du chauffage sur le logo.md",
-    "Présentation/Exemplaire TFE numérisé - ISA - PAGNOULLE PATRICK.pdf",
     "Présentation/Présentation/ChatGPT Image 13 sept. 2025, 12_16_00.png",
     "Présentation/Présentation/Capture d’écran 2025-09-14 à 16.21.18.png",
     "Présentation/Présentation/Capture d’écran 2025-09-14 à 16.19.26.png",
     "Présentation/Présentation/softcomfort.png",
     "Présentation/Présentation/slide_transparent_background.png",
-    "Présentation/Présentation/Présentation-tfe.pdf",
     "Présentation/Présentation/logo-iram-EA-RVB2PNG.png",
     "Présentation/Présentation/l-art-numerique-de-l-equipe-de-travail.jpg",
     "Présentation/Présentation/domotique.png",
-    "annexe a la documentation/Help_fr-FR_fr-FR.pdf",
     "annexe a la documentation/images/mosquitto8883/Capture d’écran 2025-05-18 à 13.10.43.png",
-    "annexe a la documentation/images/materiel/1000002032.jpg",
-    "Présentation/Dossier/communication04.mdj",
-    "Présentation/Dossier/communication03.mdj",
-    "Présentation/Dossier/communication02.mdj",
-    "Présentation/Dossier/communication01.mdj",
-    "Présentation/Dossier/communication.mdj",
-    "Présentation/Dossier/Dossier EI - 08  - final correction relecteurs.docx"
+    "annexe a la documentation/images/materiel/1000002032.jpg"
   ]
 }
