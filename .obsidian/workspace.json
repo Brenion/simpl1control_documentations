@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 1 - Infrastructure Zigbee et environnement développement.md",
+                "file": "Audit janvier 2026/SC-PH0-T08_audit-backend-structure.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PHASE 1 - Infrastructure Zigbee et environnement développement"
+              "title": "SC-PH0-T08_audit-backend-structure"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 324.5
+    "width": 460.5
   },
   "right": {
     "id": "6c3f2f741b5f8a30",
@@ -181,12 +181,18 @@
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "437b83dc6b9878d2",
+  "active": "f9e05cc0967a2903",
   "lastOpenFiles": [
-    "Sans titre 1.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 1 - Infrastructure Zigbee et environnement développement.md",
-    "Sans titre.md",
+    "Audit janvier 2026/SC-PH0-T07_audit-structure-frontend.md",
+    "Audit janvier 2026/SC-PH0-T04_audit-bibliotheques-obsoletes.md",
+    "Audit janvier 2026/SC-PH0-T03_audit-conventions-nommage.md",
+    "Audit janvier 2026/SC-PH0-T01_cartographie-mqtt.md",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 0 - Audit et préparation.md",
+    "Audit janvier 2026/SC-PH0-T08_audit-backend-structure.md",
+    "Audit janvier 2026",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 1 - Infrastructure Zigbee et environnement développement.md",
+    "Sans titre 1.md",
+    "Sans titre.md",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/00 - Plan de travail pour l'intégration Zigbee dans votre projet MQTT.md",
     "documentation/00 - Table des matières.md",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/~$SC_UserStories_Taches.xlsx",
@@ -198,7 +204,6 @@
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/import_planka.sh",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/import_planka.py",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/~$Smart_Control_User_Stories_Taches.xlsx",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/SC_UserStories_Taches.xlsx",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 8 - Sécurisation et déploiement production.md",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 7 - Tests, optimisation et documentation.md",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 2 - Modèle de données et API Devices.md",
@@ -214,11 +219,6 @@
     "documentation/L - Guide de Mise en Production.md",
     "documentation/W - RÉSUMÉ.md",
     "annexe a la documentation/ws et wss.md",
-    "documentation/J - mise en production.md",
-    "documentation/K - Récapitulatif production.md",
-    "documentation/Z - Annexe 6 - Structure backend.md",
-    "documentation/Z - Annexe 5 - Contrôle d’accès – Spécification fonctionnelle.md",
-    "documentation/Z - Annexe 4 - tableau_final_heures_minutes pour algo LOGO.md",
     "Présentation/Présentation/ChatGPT Image 13 sept. 2025, 12_16_00.png",
     "Présentation/Présentation/Capture d’écran 2025-09-14 à 16.21.18.png",
     "Présentation/Présentation/Capture d’écran 2025-09-14 à 16.19.26.png",
