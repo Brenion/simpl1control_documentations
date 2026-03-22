@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "d5685ee617b78b3c",
+        "id": "74df5eca3ede8b03",
         "type": "tabs",
         "children": [
           {
-            "id": "f9e05cc0967a2903",
+            "id": "46df8c7ea0f430c7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Audit janvier 2026/SC-PH0-T08_audit-backend-structure.md",
+                "file": "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 6 - Frontend complet.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SC-PH0-T08_audit-backend-structure"
+              "title": "PHASE 6 - Frontend complet"
             }
           }
         ]
@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:production",
+                "query": "mosquitto",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 460.5
+    "width": 200
   },
   "right": {
     "id": "6c3f2f741b5f8a30",
@@ -171,54 +171,54 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Créer une nouvelle base": false,
       "switcher:Ouvrir le sélecteur rapide": false,
       "graph:Ouvrir la vue graphique": false,
       "canvas:Créer une nouvelle toile": false,
       "daily-notes:Ouvrir la note quotidienne": false,
       "templates:Insérer le modèle": false,
       "command-palette:Ouvrir la palette de commandes": false,
-      "bases:Create new base": false,
       "github-sync:Sync with Remote": false
     }
   },
-  "active": "f9e05cc0967a2903",
+  "active": "46df8c7ea0f430c7",
   "lastOpenFiles": [
-    "Audit janvier 2026/SC-PH0-T07_audit-structure-frontend.md",
-    "Audit janvier 2026/SC-PH0-T04_audit-bibliotheques-obsoletes.md",
-    "Audit janvier 2026/SC-PH0-T03_audit-conventions-nommage.md",
-    "Audit janvier 2026/SC-PH0-T01_cartographie-mqtt.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 0 - Audit et préparation.md",
-    "Audit janvier 2026/SC-PH0-T08_audit-backend-structure.md",
-    "Audit janvier 2026",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 7 - Tests, optimisation et documentation.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 5 - Scènes.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 6 - Frontend complet.md",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 4 - Automatisations.md",
+    "SC-PH2-T01-analyse-schema-db.md",
+    "SC-PH2-TELEMETRY-architecture.md",
+    "Audit janvier 2026/SC-RAPPORT-IMPACT-PLAN-TRAVAIL.md",
+    "SC-PH2-T01-analyse-schema-db 1.md",
+    "Présentation/Exemplaire TFE numérisé - ISA - PAGNOULLE PATRICK.pdf",
+    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 2 - Modèle de données et API Devices.md",
+    "ordre d'execution.md",
+    "apprentissage/Procédure de flash — Sonoff ZBDongle-E (Zigbee Dongle Plus V2).md",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 1 - Infrastructure Zigbee et environnement développement.md",
-    "Sans titre 1.md",
-    "Sans titre.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/00 - Plan de travail pour l'intégration Zigbee dans votre projet MQTT.md",
+    "apprentissage/Documentation ser2net.md",
+    "apprentissage/Résumé complet — SC-PH1-T22.md",
+    "apprentissage/Résumé complet — SC-PH1-T20.md",
+    "documentation/C - MQTT, ESP32 et Backend.md",
+    "deployement.md",
+    "audit-backend.md",
+    "Décision architecturale finale.md",
+    "apprentissage/Bien penser les test unitaire.md",
+    "apprentissage/Plan Final - Accès sécurisé Planka sur TrueNAS SCALE.md",
+    "PEPPOL.md",
+    "Problemes identifiés.md",
+    "documentation/A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi.md",
     "documentation/00 - Table des matières.md",
+    "documentation/L - Guide de Mise en Production.md",
+    "cours Methode agile/Sans titre",
+    "ZZ - cours méthode agile",
+    "apprentissage/CI",
+    "apprentissage/@fastify-jwt",
+    "apprentissage",
+    "Audit janvier 2026",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/~$SC_UserStories_Taches.xlsx",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_DANS_TRUENAS.txt",
     "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_4_LANCER.txt",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_3.txt",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_2.txt",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/COLLER_1.txt",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/import_planka.sh",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/import_planka.py",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/~$Smart_Control_User_Stories_Taches.xlsx",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 8 - Sécurisation et déploiement production.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 7 - Tests, optimisation et documentation.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 2 - Modèle de données et API Devices.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 3 - Gestion du chauffage.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/RÉCAPITULATIF TIMING et RÉTRO-PLANNING.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 6 - Frontend complet.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 5 - Scènes.md",
-    "Plan de travail structuré - Intégration Zigbee avec gestion chauffage/PHASE 4 - Automatisations.md",
-    "documentation/B - Documentation du Backend.md",
-    "documentation/A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi.md",
-    "documentation/C - MQTT, ESP32 et Backend.md",
-    "documentation/00 - Table des Matières.md",
-    "documentation/L - Guide de Mise en Production.md",
-    "documentation/W - RÉSUMÉ.md",
-    "annexe a la documentation/ws et wss.md",
     "Présentation/Présentation/ChatGPT Image 13 sept. 2025, 12_16_00.png",
     "Présentation/Présentation/Capture d’écran 2025-09-14 à 16.21.18.png",
     "Présentation/Présentation/Capture d’écran 2025-09-14 à 16.19.26.png",

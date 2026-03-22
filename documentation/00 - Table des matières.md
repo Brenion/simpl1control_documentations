@@ -7,10 +7,10 @@ created: 2026-02-08
 
 ## Installation & Configuration de base
 
-| Fichier | Description |
-|---------|-------------|
+| Fichier                                                              | Description                                                 |
+| -------------------------------------------------------------------- | ----------------------------------------------------------- |
 | [[A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi]] | Installation Mosquitto, tests, MQTT Explorer, ESP32 basique |
-| [[B - Documentation du Backend]] | Backend Fastify, TypeORM, PostgreSQL, JWT, WebSocket |
+| [[B - Documentation du Backend]]                                     | Backend Fastify, TypeORM, PostgreSQL, JWT, WebSocket        |
 
 ## Communication IoT & MQTT
 
