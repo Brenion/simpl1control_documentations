@@ -105,7 +105,7 @@ created: 2026-02-08
 
 ## Annexes Techniques (dossier séparé)
 
-Voir le dossier `/annexe a la documentation/` :
+Voir le dossier `/05 - Annexes/` :
 - Commande SSL-TLS
 - Architecture MQTT Topics
 - ws et wss
