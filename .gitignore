@@ -5,3 +5,7 @@
 **/*.DS_Store
 # LibreOffice
 .~lock.*#
+
+# Obsidian (état local de l'interface)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json

@@ -11,7 +11,7 @@ Vault de documentation du projet **simpl1Control** (Smart Control : intégration
 ## Index
 
 1. [[MOC - Plans de travail]] : plan Zigbee v2, phases et rétro-planning
-2. [[MOC - Documentation]] : documentation technique A à M, [[00 - Table des matières]]
+2. [[MOC - Documentation]] : table des matières de la documentation technique (A à M)
 3. [[MOC - Architecture et décisions]] : décisions, schéma DB, télémétrie
 4. [[MOC - Audits]] : audits de janvier 2026 et rapports
 5. [[MOC - Annexes]] : annexes, MQTT et réseau, Siemens LOGO, matériel, apprentissage, présentation

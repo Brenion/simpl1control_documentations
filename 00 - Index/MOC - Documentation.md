@@ -1,38 +1,129 @@
 ---
 type: moc
-tags: [moc, documentation]
-created: 2026-11-02
+tags: [moc, documentation, table-des-matieres]
+created: 2026-02-08
+updated: 2026-11-02
 ---
 
 # MOC - Documentation
 
-Documentation technique principale, A à M. Voir aussi [[00 - Table des matières]].
+Table des matières de `02 - Documentation/` (notes A à M, W). Retour à l'[[Accueil]].
 
-## Documentation
+## Installation & Configuration de base
 
-- [[00 - Table des matières]]
-- [[A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi]]
-- [[B - Documentation du Backend]]
-- [[C - MQTT, ESP32 et Backend]]
-- [[D - MQTT entre siemens logo et backend]]
-- [[E - le modbus]]
-- [[F - Gestion du chauffage sur le logo]]
-- [[H - Système d'accès RFID]]
-- [[I - 00 - Plan d'action complet – Système de badge AES128 avec backend Fastify et tests réels]]
-- [[I - 00bis - Système d’Accès par Badge AES‑128 (TFE)]]
-- [[I - 01 - Gestion des badges et accessLog (Entités et Seeder)]]
-- [[I - 02 - Dérivation de clé AES128 avec HKDF (HKDF-SHA256)]]
-- [[I - 02 -PasswordService – Fiche Technique (revenir dessus)]]
-- [[I - 03 - API backend - POST badges]]
-- [[I - 04 - Intégration MQTT Backend - Lecteur de badge (access-reader)]]
-- [[I - 05 - Mise en œuvre technique – Encodeur ESP32]]
-- [[I - 05 bis - Intégration du Port MQTT Sécurisé (TLS) dans le Backend]]
-- [[J - mise en production]]
-- [[K - Récapitulatif production]]
-- [[L - Guide de Mise en Production]]
-- [[M - Guide de déploiement]]
-- [[W - RÉSUMÉ]]
+| Fichier                                                              | Description                                                 |
+| -------------------------------------------------------------------- | ----------------------------------------------------------- |
+| [[A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi]] | Installation Mosquitto, tests, MQTT Explorer, ESP32 basique |
+| [[B - Documentation du Backend]]                                     | Backend Fastify, TypeORM, PostgreSQL, JWT, WebSocket        |
 
-## Archive
+## Communication IoT & MQTT
 
-- [[G - Implémentation du Modbus dans le projet Fastify (abandonné)]] (abandonné)
+| Fichier | Description |
+|---------|-------------|
+| [[C - MQTT, ESP32 et Backend]] | Communication ESP32/Backend via MQTT, entités |
+| [[D - MQTT entre siemens logo et backend]] | Configuration LOGO, communication Modbus TCP |
+
+## Automates & Modbus
+
+| Fichier | Description |
+|---------|-------------|
+| [[E - le modbus]] | Modbus TCP, compteur énergie Schneider |
+| [[F - Gestion du chauffage sur le logo]] | Algorithme chauffage LOGO |
+| [[G - Implémentation du Modbus dans le projet Fastify (abandonné)]] | Version abandonnée (archivée dans `_archive/`) |
+
+## Système d'Accès RFID & Badges
+
+| Fichier | Description |
+|---------|-------------|
+| [[H - Système d'accès RFID]] | Concepts RFID, MFRC522, architecture |
+| [[I - 00 - Plan d'action complet – Système de badge AES128 avec backend Fastify et tests réels]] | Plan global badges AES128 |
+| [[I - 00bis - Système d’Accès par Badge AES‑128 (TFE)]] | Spécifications TFE |
+| [[I - 01 - Gestion des badges et accessLog (Entités et Seeder)]] | Entités TypeORM, seeders |
+| [[I - 02 - Dérivation de clé AES128 avec HKDF (HKDF-SHA256)]] | Cryptographie HKDF |
+| [[I - 02bis - PasswordService – Fiche Technique (revenir dessus)]] | Service mot de passe |
+| [[I - 03 - API backend - POST badges]] | API création badges |
+| [[I - 04 - Intégration MQTT Backend - Lecteur de badge (access-reader)]] | Topic access/reader |
+| [[I - 05 - Mise en œuvre technique – Encodeur ESP32]] | ESP32 complet : WiFi, TLS, MQTT, RFID |
+| [[I - 05 bis - Intégration du Port MQTT Sécurisé (TLS) dans le Backend]] | Backend double port 1883/8883 |
+
+## Production & Déploiement
+
+| Fichier | Description |
+|---------|-------------|
+| [[J - mise en production]] | Notes brutes de production |
+| [[K - Récapitulatif production]] | Résumé compact : compose, scripts |
+| [[L - Guide de Mise en Production]] | **Guide complet** : SSH, Docker, TLS, Mosquitto, scripts |
+| [[M - Guide de déploiement]] | Guide court de déploiement DEV / TEST / PROD |
+
+## Résumé (W)
+
+| Fichier | Description |
+|---------|-------------|
+| [[W - RÉSUMÉ]] | Résumé de la mise en place de Mosquitto sur Raspberry Pi (contenu proche de la note A) |
+
+## Annexes du projet (Z)
+
+Stockées dans `05 - Annexes/Annexes du projet/`. Index complet : [[MOC - Annexes]].
+
+| Fichier | Description |
+|---------|-------------|
+| [[Z - Annexe 1 - MoSCoW]] | Priorisation MoSCoW |
+| [[Z - Annexe 2 - Retro planning]] | Planning rétrospectif |
+| [[Z - Annexe 3 - objectif lecteur de carte]] | Objectifs lecteur |
+| [[Z - Annexe 4 - tableau_final_heures_minutes pour algo LOGO]] | Tableau heures LOGO |
+| [[Z - Annexe 5 - Contrôle d’accès – Spécification fonctionnelle]] | Specs contrôle accès |
+| [[Z - Annexe 6 - Structure backend]] | Structure du backend |
+
+---
+
+## Navigation par Thème
+
+### SSH
+- [[L - Guide de Mise en Production#1.1 Configuration SSH]] - Configuration complète
+- [[J - mise en production]] - Notes originales
+
+### Certificats TLS
+- [[L - Guide de Mise en Production#2. Génération des Certificats TLS]] - Guide complet CA + serveur + clients
+- [[I - 05 - Mise en œuvre technique – Encodeur ESP32#2.2.1 Génération du certificat de l'autorité (CA)]] - Détails certificats
+- [[I - 05 bis - Intégration du Port MQTT Sécurisé (TLS) dans le Backend]] - Backend TLS
+
+### MQTT / Mosquitto
+- [[A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi#1. Installation de Mosquitto sur le Raspberry Pi]] - Installation de base
+- [[L - Guide de Mise en Production#3. Configuration Mosquitto]] - Configuration production (1883 + 8883)
+
+### Docker
+- [[L - Guide de Mise en Production#1.3 Installation de Docker]] - Installation
+- [[L - Guide de Mise en Production#1.4 Création du registre privé Docker]] - Registre privé
+- [[L - Guide de Mise en Production#6. Docker Compose Production]] - Compose production
+- [[K - Récapitulatif production]] - Résumé scripts
+
+### ESP32
+- [[I - 05 - Mise en œuvre technique – Encodeur ESP32#1. Préparation matérielle]] - Brochage complet
+- [[I - 05 - Mise en œuvre technique – Encodeur ESP32#2.3 Intégration MQTT TLS uniquement]] - Code TLS complet
+- [[L - Guide de Mise en Production#8. Intégration ESP32]] - Résumé production
+- [[A - Installation et Test de Mosquitto (MQTT) sur un Raspberry Pi#7. Préparation de l'ESP32 pour l'envoi de messages MQTT]] - Code basique (port 1883)
+
+### PostgreSQL / Backend
+- [[B - Documentation du Backend]] - Documentation complète
+- [[L - Guide de Mise en Production#4. Configuration Backend]] - Variables production
+- [[L - Guide de Mise en Production#6.2 Fichier production/db.env]] - Credentials DB
+
+---
+
+## Annexes techniques
+
+Dans `05 - Annexes/` (index complet : [[MOC - Annexes]]) :
+
+- **MQTT et réseau** : [[Commande SSL-TLS]], [[Architecture MQTT Topics]], [[ws et wss]], [[fortigate]], [[Intégration d'un système IoT Zigbee local via MQTT]]
+- **Siemens LOGO** : [[LOGO_Modbus_TCP_FR]], [[LOGO_Functional_Blocks]], [[Tutoriel Logo]]
+- **Apprentissage, matériel, présentation** : voir [[MOC - Annexes]]
+
+---
+
+## Autres index
+
+- [[Accueil]]
+- [[MOC - Plans de travail]]
+- [[MOC - Architecture et décisions]]
+- [[MOC - Audits]]
+- [[MOC - Annexes]]
