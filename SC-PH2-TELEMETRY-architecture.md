@@ -183,15 +183,15 @@ telemetry_policies
 
 ### Valeurs recommandées par type de donnée
 
-| Donnée | `minInterval` | `onChangeOnly` | Lignes/jour/device |
-|---|---|---|---|
-| Puissance électrique (`power`) | 30s | false | 2 880 |
-| Énergie cumulée (`energy`) | 60s | false | 1 440 |
-| Température | 120s | false | 720 |
-| Humidité | 300s | false | 288 |
-| État on/off (`state`) | 0 | true | ~10 (événements) |
-| Batterie | 3600s | false | 24 |
-| Qualité signal (`linkquality`) | 300s | false | 288 |
+| Donnée                         | `minInterval` | `onChangeOnly` | Lignes/jour/device |
+| ------------------------------ | ------------- | -------------- | ------------------ |
+| Puissance électrique (`power`) | 30s           | false          | 2 880              |
+| Énergie cumulée (`energy`)     | 60s           | false          | 1 440              |
+| Température                    | 120s          | false          | 720                |
+| Humidité                       | 300s          | false          | 288                |
+| État on/off (`state`)          | 0             | true           | ~10 (événements)   |
+| Batterie                       | 3600s         | false          | 24                 |
+| Qualité signal (`linkquality`) | 300s          | false          | 288                |
 
 **Volume estimé installation type PME (20 devices) :**
 - Sans policy : ~130 000 lignes/jour → 47M/an

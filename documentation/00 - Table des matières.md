@@ -33,7 +33,7 @@ created: 2026-02-08
 |---------|-------------|
 | [[H - Système d'accès RFID]] | Concepts RFID, MFRC522, architecture |
 | [[I - 00 - Plan d'action complet – Système de badge AES128 avec backend Fastify et tests réels]] | Plan global badges AES128 |
-| [[I - 00bis - Système d'Accès par Badge AES‑128 (TFE)]] | Spécifications TFE |
+| [[I - 00bis - Système d’Accès par Badge AES‑128 (TFE)]] | Spécifications TFE |
 | [[I - 01 - Gestion des badges et accessLog (Entités et Seeder)]] | Entités TypeORM, seeders |
 | [[I - 02 - Dérivation de clé AES128 avec HKDF (HKDF-SHA256)]] | Cryptographie HKDF |
 | [[I - 02 -PasswordService – Fiche Technique (revenir dessus)]] | Service mot de passe |
@@ -64,7 +64,7 @@ created: 2026-02-08
 | [[Z - Annexe 2 - Retro planning]] | Planning rétrospectif |
 | [[Z - Annexe 3 - objectif lecteur de carte]] | Objectifs lecteur |
 | [[Z - annexe 4 - tableau_final_heures_minutes pour algo LOGO]] | Tableau heures LOGO |
-| [[Z - annexe 5 - Contrôle d'accès – Spécification fonctionnelle]] | Specs contrôle accès |
+| [[Z - Annexe 5 - Contrôle d’accès – Spécification fonctionnelle]] | Specs contrôle accès |
 | [[Z - annexe 6 - Structure backend]] | Structure du backend |
 
 ---

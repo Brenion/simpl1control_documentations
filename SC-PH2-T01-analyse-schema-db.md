@@ -515,130 +515,130 @@ device_history  ← hypertable (partition sur time)
 ```mermaid
 erDiagram
 
-    users {
-        uuid id PK
-        timestamp createdAt
-        timestamp updatedAt
-        varchar firstname
-        varchar lastname
-        varchar username
-        varchar password
-        varchar mail "UNIQUE"
-        varchar role "admin|employee|security"
-        varchar refreshToken
-        varchar resetToken
-        timestamp resetTokenExpiry
-        timestamp lastLoginAt
-    }
+users {
+	uuid id PK
+	timestamp createdAt
+	timestamp updatedAt
+	varchar firstname
+	varchar lastname
+	varchar username
+	varchar password
+	varchar mail "UNIQUE"
+	varchar role "admin|employee|security"
+	varchar refreshToken
+	varchar resetToken
+	timestamp resetTokenExpiry
+	timestamp lastLoginAt
+}
 
-    profiles {
-        uuid id PK
-        timestamp createdAt
-        timestamp updatedAt
-        uuid userId FK
-        varchar name
-        varchar deviceType "desktop|tablet|mobile"
-        boolean isDefault
-    }
+profiles {
+	uuid id PK
+	timestamp createdAt
+	timestamp updatedAt
+	uuid userId FK
+	varchar name
+	varchar deviceType "desktop|tablet|mobile"
+	boolean isDefault
+}
 
-    pages {
-        uuid id PK
-        timestamp createdAt
-        timestamp updatedAt
-        uuid profileId FK
-        varchar name
-        int position
-    }
+pages {
+	uuid id PK
+	timestamp createdAt
+	timestamp updatedAt
+	uuid profileId FK
+	varchar name
+	int position
+}
 
-    cards {
-        uuid id PK
-        timestamp createdAt
-        timestamp updatedAt
-        uuid pageId FK
-        varchar name
-        boolean isActive
-        int position
-        varchar targetType "device|group|scene"
-        uuid targetId "loose ref"
-        varchar selectedKeys "varchar[]"
-    }
+cards {
+	uuid id PK
+	timestamp createdAt
+	timestamp updatedAt
+	uuid pageId FK
+	varchar name
+	boolean isActive
+	int position
+	varchar targetType "device|group|scene"
+	uuid targetId "loose ref"
+	varchar selectedKeys "varchar[]"
+}
 
-    devices {
-        uuid id PK
-        timestamp createdAt
-        timestamp updatedAt
-        varchar name
-        varchar friendlyName
-        varchar protocol "mqtt|zigbee|zigbee_group|logo"
-        varchar subscribe
-        varchar publish
-        varchar roles "enum[]"
-        boolean isSecure
-        varchar adminStatus "enabled|disabled|maintenance"
-        varchar description
-        jsonb capabilities
-    }
+devices {
+	uuid id PK
+	timestamp createdAt
+	timestamp updatedAt
+	varchar name
+	varchar friendlyName
+	varchar protocol "mqtt|zigbee|zigbee_group|logo"
+	varchar subscribe
+	varchar publish
+	varchar roles "enum[]"
+	boolean isSecure
+	varchar adminStatus "enabled|disabled|maintenance"
+	varchar description
+	jsonb capabilities
+}
 
-    device_states {
-        uuid deviceId PK "FK devices.id"
-        varchar technicalStatus "online|offline|unreachable"
-        timestamp lastSeenAt
-        timestamp updatedAt
-        jsonb state
-    }
+device_states {
+	uuid deviceId PK "FK devices.id"
+	varchar technicalStatus "online|offline|unreachable"
+	timestamp lastSeenAt
+	timestamp updatedAt
+	jsonb state
+}
 
-    zigbee_groups {
-        uuid id PK
-        timestamp createdAt
-        timestamp updatedAt
-        uuid deviceId FK
-        int groupId
-        varchar friendlyName
-    }
+zigbee_groups {
+	uuid id PK
+	timestamp createdAt
+	timestamp updatedAt
+	uuid deviceId FK
+	int groupId
+	varchar friendlyName
+}
 
-    zigbee_scenes {
-        uuid id PK
-        timestamp createdAt
-        timestamp updatedAt
-        uuid groupId FK
-        int sceneId
-        varchar name
-    }
+zigbee_scenes {
+	uuid id PK
+	timestamp createdAt
+	timestamp updatedAt
+	uuid groupId FK
+	int sceneId
+	varchar name
+}
 
-    badges {
-        bytea cardId PK "UID MIFARE"
-        timestamp createdAt
-        timestamp updatedAt
-        boolean deniedAccessFlag
-        uuid userId "UNIQUE loose ref"
-        bytea keyA
-        bytea keyB
-    }
+badges {
+	bytea cardId PK "UID MIFARE"
+	timestamp createdAt
+	timestamp updatedAt
+	boolean deniedAccessFlag
+	uuid userId "UNIQUE loose ref"
+	bytea keyA
+	bytea keyB
+}
 
-    access_logs {
-        uuid id PK
-        timestamp createdAt
-        timestamp updatedAt
-        bytea cardId "loose ref"
-        uuid userId "loose ref"
-        varchar accessOutcome
-        varchar source
-    }
+access_logs {
+	uuid id PK
+	timestamp createdAt
+	timestamp updatedAt
+	bytea cardId "loose ref"
+	uuid userId "loose ref"
+	varchar accessOutcome
+	varchar source
+}
 
-    %% FK strictes - flux applicatif
-    users ||--o{ profiles : "userId"
-    profiles ||--o{ pages : "profileId"
-    pages ||--o{ cards : "pageId"
-    devices ||--|| device_states : "deviceId"
-    devices ||--o{ zigbee_groups : "deviceId"
-    zigbee_groups ||--o{ zigbee_scenes : "groupId"
+%% FK strictes - flux applicatif
+users ||--o{ profiles : "userId"
+profiles ||--o{ pages : "profileId"
+pages ||--o{ cards : "pageId"
+devices ||--|| device_states : "deviceId"
+devices ||--o{ zigbee_groups : "deviceId"
+zigbee_groups ||--o{ zigbee_scenes : "groupId"
 
-    %% Références loose - flux métier (pas de FK)
-    cards }o--o| devices : "targetId (loose)"
-    cards }o--o| zigbee_groups : "targetId (loose)"
-    cards }o--o| zigbee_scenes : "targetId (loose)"
-    badges }o--o| users : "userId (loose)"
-    access_logs }o--o| users : "userId (loose)"
+%% Références loose - flux métier (pas de FK)
+cards }o--o| devices : "targetId (loose)"
+cards }o--o| zigbee_groups : "targetId (loose)"
+cards }o--o| zigbee_scenes : "targetId (loose)"
+badges }o--o| users : "userId (loose)"
+access_logs }o--o| users : "userId (loose)"
 ```
 
 ### DB Historisation — TimescaleDB (`packages/history`)
