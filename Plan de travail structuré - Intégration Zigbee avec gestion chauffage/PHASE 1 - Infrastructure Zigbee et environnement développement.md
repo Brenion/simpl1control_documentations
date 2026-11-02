@@ -30,15 +30,18 @@
 - **SC-PH1-T08** : Télécharger firmware Ember pour ZBDongle-E (SC-US-PH1-03)
 - **SC-PH1-T09** : Flasher le firmware Ember sur la clé Sonoff (SC-US-PH1-03)
 - **SC-PH1-T10** : Documenter la procédure de flash pour futures mises à jour (SC-US-PH1-03)
-- **SC-PH1-T11** : Installer Zigbee2MQTT sur Raspberry Pi 5 (installation native) (SC-US-PH1-04)
+- **SC-PH1-T11** : Préparer service Z2M en Docker (SC-US-PH1-04)
 - **SC-PH1-T12** : Configurer `configuration.yaml` Z2M (port série, connexion broker MQTT existant 1883/8883) (SC-US-PH1-04)
 - **SC-PH1-T13** : Définir base topic `zigbee2mqtt/` et valider architecture topics globale avec MQTT existant (SC-US-PH1-05)
 - **SC-PH1-T14** : Activer frontend Zigbee2MQTT (port 8080 local) (SC-US-PH1-04)
-- **SC-PH1-T15** : Configurer démarrage automatique Zigbee2MQTT (systemd) (SC-US-PH1-04)
+- **SC-PH1-T15** : Configurer restart policy Docker pour Z2M (SC-US-PH1-04)
 - **SC-PH1-T16** : Optimiser configuration Z2M pour Raspberry Pi 5 (logs, verbosité) (SC-US-PH1-04)
 - **SC-PH1-T17** : Tester connexion Z2M au broker MQTT existant (publier/recevoir messages) (SC-US-PH1-04)
 - **SC-PH1-T18** : Tester appairage d'un appareil Zigbee de test (SC-US-PH1-04)
 - **SC-PH1-T19** : Vérifier cohabitation topics MQTT (Zigbee + Siemens + existants) sans conflits (SC-US-PH1-05)
+- SC-PH1-T20 : Créer service Mosquitto dans `docker-compose.yml` avec ports 1883/8883 (SC-US-PH1-01)
+- SC-PH1-T21 : Créer `mosquitto.conf` de développement (plain 1883 + TLS 8883 optionnel, ACL permissives) (SC-US-PH1-01)
+- SC-PH1-T22 : Générer certificats de développement (version simplifiée `setup-pki.sh` — CA + broker + backend) (SC-US-PH1-01)
 
 **Architecture topics MQTT (validation avec existant) :**
 

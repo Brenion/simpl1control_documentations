@@ -9,15 +9,17 @@
 
 **Tâches :**
 
-- **SC-PH8-T01** : Générer certificats SSL (Let's Encrypt ou auto-signés intranet) (SC-US-PH8-01)
+- **SC-PH8-T01** : Implémenter PKI locale complète via `setup-pki.sh` (CA + tous clients) (SC-US-PH8-01)
+- SC-PH8-T01-BIS : Créer script `issue-cert.sh` exécutable depuis container pour émettre de nouveaux certificats clients dans le temps
 - **SC-PH8-T02** : Configurer Nginx reverse proxy pour HTTPS (SC-US-PH8-01)
 - **SC-PH8-T03** : Configurer Nginx pour WSS (SC-US-PH8-01)
 - **SC-PH8-T04** : Migrer toutes connexions WebSocket vers WSS (SC-US-PH8-01)
 - **SC-PH8-T05** : Configurer renouvellement automatique certificats (SC-US-PH8-01)
-- **SC-PH8-T06** : Configurer Mosquitto avec TLS (port 8883) (SC-US-PH8-02)
-- **SC-PH8-T07** : Définir ACL Mosquitto production strictes (SC-US-PH8-02)
-- **SC-PH8-T08** : Créer users MQTT avec mots de passe forts (SC-US-PH8-02)
+- **SC-PH8-T06** : Déployer container Mosquitto prod avec TLS strict via certs PKI (SC-US-PH8-02)
+- **SC-PH8-T07** : Définir ACL Mosquitto production strictes (prod uniquement) (SC-US-PH8-02)
+- **SC-PH8-T08** :  Créer users MQTT prod forts + script `issue-cert.sh` pour nouveaux devices (SC-US-PH8-02)
 - **SC-PH8-T09** : Tester performance SSL/TLS sur Raspberry Pi 5 (SC-US-PH8-01)
+
 
 ### B - Sécurisation application
 
@@ -53,8 +55,8 @@
 - **SC-PH8-T23** : Installer stack complète selon guide installation (SC-US-PH8-05)
 - **SC-PH8-T24** : Configurer variables environnement production (SC-US-PH8-05)
 - **SC-PH8-T25** : Build production frontend optimisé (SC-US-PH8-05)
-- **SC-PH8-T26** : Configurer systemd services (backend, Z2M, Mosquitto) (SC-US-PH8-05)
-- **SC-PH8-T27** : Configurer PM2 pour backend Node.js (SC-US-PH8-05)
+- **SC-PH8-T26** :  Configurer `docker-compose.production.yml` (Mosquitto + Z2M + dongle USB) (backend, Z2M, Mosquitto) (SC-US-PH8-05)
+- **SC-PH8-T27** : Configurer restart policy Docker pour backend (SC-US-PH8-05)
 - **SC-PH8-T28** : Tests smoke post-déploiement (endpoints, WebSocket, MQTT) (SC-US-PH8-05)
 - **SC-PH8-T29** : Configurer backups automatiques DB (cron dump PostgreSQL) (SC-US-PH8-05)
 - **SC-PH8-T30** : Configurer monitoring (script alerte ressources) (SC-US-PH8-05)
